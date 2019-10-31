@@ -1,9 +1,13 @@
 package entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 
 @Entity
 public class Task {
@@ -18,4 +22,12 @@ public class Task {
     private User author;
 
     private User executor;
+
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateOpen;
+
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateClose;
 }
