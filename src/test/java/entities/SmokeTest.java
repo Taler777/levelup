@@ -15,7 +15,7 @@ public class SmokeTest {
 
     @Before
     public void setup() {
-        factory = Persistence.createEntityManagerFactory("TestPersistencwUnit");
+        factory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
         manager = factory.createEntityManager();
     }
 
