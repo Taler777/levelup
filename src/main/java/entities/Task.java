@@ -31,18 +31,19 @@ public class Task {
 
     private long rating;
 
-    private Status status;
+    private State state;
 
     public Task()
     {
     }
 
-    public Task(String name, String text, String report, long rating, User author, User executor, Date dateOpen, Date dateClose)
+    public Task(String name, String text, String report, long rating, State state, User author, User executor, Date dateOpen, Date dateClose)
     {
         this.name = name;
         this.text = text;
         this.report = report;
         this.rating = rating;
+        this.state = state;
         this.author = author;
         this.executor = executor;
         this.dateOpen = dateOpen;
@@ -153,13 +154,23 @@ public class Task {
         this.dateClose = dateClose;
     }
 
+    public State getState()
+    {
+        return state;
+    }
+
+    public void setState(State state)
+    {
+        this.state = state;
+    }
+
     @Override
     public String toString()
     {
         return new ToStringBuilder(this)
             .append("id", id)
             .append("name", name)
-            .append("status", status)
+            .append("state", state)
             .append("author", author)
             .append("executor", executor)
             .append("dateOpen", dateOpen)
@@ -188,7 +199,7 @@ public class Task {
             .append(name, task.name)
             .append(text, task.text)
             .append(report, task.report)
-            .append(status, task.status)
+            .append(state, task.state)
             .append(author, task.author)
             .append(executor, task.executor)
             .append(dateOpen, task.dateOpen)
@@ -205,7 +216,7 @@ public class Task {
             .append(text)
             .append(report)
             .append(rating)
-            .append(status)
+            .append(state)
             .append(author)
             .append(executor)
             .append(dateOpen)
