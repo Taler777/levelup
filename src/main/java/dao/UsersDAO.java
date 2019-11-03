@@ -18,16 +18,18 @@ public class UsersDAO
 		manager.persist(user);
 	}
 
-	public User findByLogin(String login){
+	public User findByLogin(String login)
+	{
 		return manager.createQuery("from User where login = :p", User.class)
 			.setParameter("p", login)
 			.getSingleResult();
 	}
 
-	public User findByLoginAndPassword(String login, String password){
+	public User findByLoginAndPassword(String login, String password)
+	{
 		return manager.createQuery("from User where login = :login AND password = :password", User.class)
 			.setParameter("login", login)
-			.setParameter("password",password)
+			.setParameter("password", password)
 			.getSingleResult();
 	}
 }
