@@ -1,13 +1,13 @@
 package entities;
 
-public enum Status
+public enum State
 {
-	OPEN("open"),
-	CLOSE("close");
+	OPEN("OPEN"),
+	CLOSE("CLOSE");
 
 	private String description;
 
-	Status(String description)
+	State(String description)
 	{
 		this.description = description;
 	}
