@@ -29,7 +29,7 @@ public class UsersDAO {
                 .getSingleResult();
     }
 
-    public List<User> getAllUsers() {
+    public List<User> findAllUsers() {
         return manager.createQuery("from User", User.class).getResultList();
     }
 }

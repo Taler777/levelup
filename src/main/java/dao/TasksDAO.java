@@ -31,4 +31,8 @@ public class TasksDAO {
                 .setParameter("p", state)
                 .getResultList();
     }
+
+    public List<Task> findAllTasks() {
+        return manager.createQuery("from Task", Task.class).getResultList();
+    }
 }
