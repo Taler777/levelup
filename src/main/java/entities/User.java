@@ -14,111 +14,95 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User
-{
+public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
-	@Column(length = 32, unique = true, nullable = false)
-	private String login;
+    @Column(length = 32, unique = true, nullable = false)
+    private String login;
 
-	@Column(length = 32, nullable = false)
-	private String password;
+    @Column(length = 32, nullable = false)
+    private String password;
 
-	long rating;
+    long rating;
 
-	public User()
-	{
-	}
+    public User() {
+    }
 
-	public User(String login, String password, long rating)
-	{
-		this.login = login;
-		this.password = password;
-		this.rating = rating;
-	}
+    public User(String login, String password, long rating) {
+        this.login = login;
+        this.password = password;
+        this.rating = rating;
+    }
 
-	public long getId()
-	{
-		return id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setId(long id)
-	{
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public String getLogin()
-	{
-		return login;
-	}
+    public String getLogin() {
+        return login;
+    }
 
-	public void setLogin(String login)
-	{
-		this.login = login;
-	}
+    public void setLogin(String login) {
+        this.login = login;
+    }
 
-	public String getPassword()
-	{
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password)
-	{
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public long getRating()
-	{
-		return rating;
-	}
+    public long getRating() {
+        return rating;
+    }
 
-	public void setRating(long rating)
-	{
-		this.rating = rating;
-	}
+    public void setRating(long rating) {
+        this.rating = rating;
+    }
 
-	@Override
-	public String toString()
-	{
-		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-			.append("id", id)
-			.append("login", login)
-			.append("rating", rating)
-			.toString();
-	}
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("id", id)
+                .append("login", login)
+                .append("rating", rating)
+                .toString();
+    }
 
-	@Override
-	public boolean equals(Object o)
-	{
-		if (this == o)
-		{
-			return true;
-		}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
 
-		if (o == null || getClass() != o.getClass())
-		{
-			return false;
-		}
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
-		User user = (User) o;
+        User user = (User) o;
 
-		return new EqualsBuilder()
-			.append(id, user.id)
-			.append(rating, user.rating)
-			.append(login, user.login)
-			.isEquals();
-	}
+        return new EqualsBuilder()
+                .append(id, user.id)
+                .append(rating, user.rating)
+                .append(login, user.login)
+                .isEquals();
+    }
 
-	@Override
-	public int hashCode()
-	{
-		return new HashCodeBuilder(17, 37)
-			.append(id)
-			.append(login)
-			.append(rating)
-			.toHashCode();
-	}
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .append(login)
+                .append(rating)
+                .toHashCode();
+    }
 }

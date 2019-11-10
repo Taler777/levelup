@@ -1,7 +1,6 @@
 package entities;
 
-public enum State
-{
-	OPEN,
-	CLOSE;
+public enum State {
+    OPEN,
+    CLOSE;
 }
