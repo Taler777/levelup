@@ -1,29 +1,31 @@
-package dao;
+package ru.levelup.junior.entities;
 
-import entities.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import ru.levelup.junior.entities.Task;
+import ru.levelup.junior.entities.User;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-public class UsersDAOTest
+public class EntitiesTest
 {
 	private EntityManagerFactory factory;
 	private EntityManager manager;
-	private UsersDAO dao;
 	private User user;
 
 	@Before
-	public void setUp() throws Exception
+	public void setup()
 	{
 		factory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
 		manager = factory.createEntityManager();
-		dao = new UsersDAO(manager);
+
 		user = new User();
 		user.setLogin("test");
 		user.setPassword("123");
@@ -43,12 +45,12 @@ public class UsersDAOTest
 	}
 
 	@Test
-	public void create() throws Exception
+	public void testCreateUser() throws Exception
 	{
 		manager.getTransaction().begin();
 		try
 		{
-			dao.create(user);
+			manager.persist(user);
 			manager.getTransaction().commit();
 		}
 		catch (Exception e)
@@ -57,15 +59,27 @@ public class UsersDAOTest
 			throw e;
 		}
 		assertNotNull(manager.find(User.class, user.getId()));
+
+		User found = manager.createQuery("from User where login = :p", User.class)
+			.setParameter("p", "test")
+			.getSingleResult();
+
+		assertEquals(user.getId(), found.getId());
 	}
 
 	@Test
-	public void findByLogin() throws Exception
+	public void testCreateTask() throws Exception
 	{
+		Task task = new Task();
+		task.setName("testName");
+		task.setText("testText");
+		task.setRating(5L);
+		task.setAuthor(user);
 		manager.getTransaction().begin();
 		try
 		{
 			manager.persist(user);
+			manager.persist(task);
 			manager.getTransaction().commit();
 		}
 		catch (Exception e)
@@ -73,28 +87,13 @@ public class UsersDAOTest
 			manager.getTransaction().rollback();
 			throw e;
 		}
-		User found = dao.findByLogin("test");
-		assertNotNull(found);
-		assertEquals(user.getId(), found.getId());
-	}
 
-	@Test
-	public void findByLoginAndPassword() throws Exception
-	{
-		manager.getTransaction().begin();
-		try
-		{
-			manager.persist(user);
-			manager.getTransaction().commit();
-		}
-		catch (Exception e)
-		{
-			manager.getTransaction().rollback();
-			throw e;
-		}
+		List<Task> found = manager.createQuery("from Task where author.login =:p ", Task.class)
+			.setParameter("p", "test")
+			.getResultList();
 
-		User found = dao.findByLoginAndPassword("test", "123");
 		assertNotNull(found);
-		assertEquals(user.getId(), found.getId());
+		assertEquals(task.getId(), found.get(0).getId());
+		assertEquals(task.getRating(), found.get(0).getRating());
 	}
 }

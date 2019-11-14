@@ -1,7 +1,7 @@
-package web;
+package ru.levelup.junior.web;
 
-import dao.TasksDAO;
-import entities.Task;
+import ru.levelup.junior.dao.TasksDAO;
+import ru.levelup.junior.entities.Task;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

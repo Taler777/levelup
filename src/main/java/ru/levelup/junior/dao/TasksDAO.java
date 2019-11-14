@@ -1,14 +1,18 @@
-package dao;
+package ru.levelup.junior.dao;
 
-import entities.State;
-import entities.Task;
+import ru.levelup.junior.entities.State;
+import ru.levelup.junior.entities.Task;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@Repository
 public class TasksDAO {
     private EntityManager manager;
 
+    @Autowired
     public TasksDAO(EntityManager manager) {
         this.manager = manager;
     }

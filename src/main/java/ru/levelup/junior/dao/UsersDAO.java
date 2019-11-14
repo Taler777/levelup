@@ -1,19 +1,28 @@
-package dao;
+package ru.levelup.junior.dao;
 
-import entities.User;
+import ru.levelup.junior.entities.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+@Repository
 public class UsersDAO {
+
     private EntityManager manager;
 
+    @Autowired
     public UsersDAO(EntityManager manager) {
         this.manager = manager;
     }
 
     public void create(User user) {
         manager.persist(user);
+    }
+
+    public User findById(long id) {
+        return manager.find(User.class, id);
     }
 
     public User findByLogin(String login) {

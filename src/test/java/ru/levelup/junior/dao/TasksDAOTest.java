@@ -1,8 +1,8 @@
-package dao;
+package ru.levelup.junior.dao;
 
-import entities.State;
-import entities.Task;
-import entities.User;
+import ru.levelup.junior.entities.State;
+import ru.levelup.junior.entities.Task;
+import ru.levelup.junior.entities.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

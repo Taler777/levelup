@@ -1,4 +1,4 @@
-package entities;
+package ru.levelup.junior.entities;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
