@@ -52,7 +52,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testGetAllUsers(){
+    public void testGetAllUsers() {
         List<User> users = dao.findAllUsers();
         assertEquals(2, users.size());
     }
