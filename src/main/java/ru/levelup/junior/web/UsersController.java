@@ -9,15 +9,17 @@ import ru.levelup.junior.entities.User;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * Контроллер, отрабатывающий запросы относительно пользователей
+ */
 @Controller
-public class UsersListController {
+public class UsersController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(params = "/users")
+    @GetMapping(path = "/users")
     public String dashboard(HttpSession session, ModelMap model) {
         try {
-//            long userId = (Long) session.getAttribute("userId");
             List<User> users = userService.getAllUsers();
             model.addAttribute("users", users);
             return "users";

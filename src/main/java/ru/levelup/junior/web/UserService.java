@@ -11,7 +11,7 @@ import java.util.List;
 public class UserService {
 
     @Autowired
-    UsersDAO dao;
+    private UsersDAO dao;
 
     public void create(User user) {
         dao.create(user);
