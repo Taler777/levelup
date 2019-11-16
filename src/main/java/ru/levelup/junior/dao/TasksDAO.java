@@ -1,22 +1,27 @@
 package ru.levelup.junior.dao;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.levelup.junior.entities.State;
 import ru.levelup.junior.entities.Task;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 public class TasksDAO {
+    @PersistenceContext
     private EntityManager manager;
 
-    @Autowired
+    public TasksDAO() {
+    }
+
     public TasksDAO(EntityManager manager) {
         this.manager = manager;
     }
 
+    @Transactional
     public void create(Task task) {
         //TODO можно добавить ограничение на создание задания
 //		Например, создавать задание может пользователь с рейтингом > 10,

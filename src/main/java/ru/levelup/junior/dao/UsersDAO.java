@@ -1,22 +1,26 @@
 package ru.levelup.junior.dao;
 
-import ru.levelup.junior.entities.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import ru.levelup.junior.entities.User;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 public class UsersDAO {
-
+    @PersistenceContext
     private EntityManager manager;
 
-    @Autowired
+    public UsersDAO() {
+    }
+
     public UsersDAO(EntityManager manager) {
         this.manager = manager;
     }
 
+    @Transactional
     public void create(User user) {
         manager.persist(user);
     }

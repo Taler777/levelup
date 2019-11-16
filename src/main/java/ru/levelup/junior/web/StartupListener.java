@@ -4,20 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.levelup.junior.dao.TasksDAO;
 import ru.levelup.junior.dao.UsersDAO;
 import ru.levelup.junior.entities.State;
 import ru.levelup.junior.entities.Task;
 import ru.levelup.junior.entities.User;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 import java.util.Date;
 
 //@Component
@@ -26,20 +24,16 @@ public class StartupListener implements ServletContextListener {
     private EntityManagerFactory factory;
 
     @Autowired
-    EntityManager manager;
-
-    @Autowired
     UsersDAO dao;
 
     @Autowired
     TasksDAO tasksDAO;
 
     @EventListener
-    public void handleContextRefreshEvent(ContextRefreshedEvent ctxStartEvt){
+    @Transactional
+    public void handleContextRefreshEvent(ContextRefreshedEvent ctxStartEvt) {
         User testUser;
         User secondUser;
-
-        manager.getTransaction().begin();
 
         try {
             testUser = dao.findByLogin("test");
@@ -61,8 +55,6 @@ public class StartupListener implements ServletContextListener {
                         , new Date()
                         , null));
             }
-
-            manager.getTransaction().commit();
         }
     }
 

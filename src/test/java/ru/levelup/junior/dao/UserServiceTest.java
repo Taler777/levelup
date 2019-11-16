@@ -1,6 +1,5 @@
 package ru.levelup.junior.dao;
 
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,11 +8,13 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 import ru.levelup.junior.entities.User;
-import ru.levelup.junior.web.AppConfig;
+import ru.levelup.junior.configs.AppConfig;
 import ru.levelup.junior.web.UserService;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -29,19 +30,18 @@ public class UserServiceTest {
     @Autowired
     UsersDAO dao;
 
-    @Autowired
+    @PersistenceContext
     private EntityManager manager;
 
     private long id;
 
     @Before
+    @Transactional
     public void setup() {
-        manager.getTransaction().begin();
         User testUser = new User("test", "123", 0L);
         userService.create(testUser);
         User testUser2 = new User("test2", "456", 0L);
         userService.create(testUser2);
-        manager.getTransaction().commit();
         id = testUser.getId();
     }
 
