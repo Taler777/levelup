@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.levelup.junior.entities.State;
 import ru.levelup.junior.entities.Task;
+import ru.levelup.junior.entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,10 @@ public class TasksDAO {
 //		Например, создавать задание может пользователь с рейтингом > 10,
 //		то есть, если пользователь выполнил хотя бы несколько заданий с суммарным рейтингом 10 и более
         manager.persist(task);
+    }
+
+    public Task findById(long id) {
+        return manager.find(Task.class, id);
     }
 
     public List<Task> findByName(String name) {
