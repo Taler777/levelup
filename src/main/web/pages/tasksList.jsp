@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:useBean id="tasks" scope="request" type="java.util.List<entities.Task>"></jsp:useBean>
+<jsp:useBean id="tasks" scope="request" type="java.util.List<ru.levelup.junior.entities.Task>"></jsp:useBean>
 <html>
 <head>
     <title>

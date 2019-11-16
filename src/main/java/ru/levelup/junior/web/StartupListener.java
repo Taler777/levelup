@@ -1,5 +1,9 @@
 package ru.levelup.junior.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 import ru.levelup.junior.dao.TasksDAO;
 import ru.levelup.junior.dao.UsersDAO;
 import ru.levelup.junior.entities.State;
@@ -16,18 +20,26 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import java.util.Date;
 
-@WebListener
+//@Component
 public class StartupListener implements ServletContextListener {
-    public void contextInitialized(ServletContextEvent event) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("TestPersistenceUnit");
+    @Autowired
+    private EntityManagerFactory factory;
 
+    @Autowired
+    EntityManager manager;
+
+    @Autowired
+    UsersDAO dao;
+
+    @Autowired
+    TasksDAO tasksDAO;
+
+    @EventListener
+    public void handleContextRefreshEvent(ContextRefreshedEvent ctxStartEvt){
         User testUser;
         User secondUser;
 
-        EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
-        UsersDAO dao = new UsersDAO(manager);
-        TasksDAO tx = new TasksDAO(manager);
 
         try {
             testUser = dao.findByLogin("test");
@@ -41,15 +53,17 @@ public class StartupListener implements ServletContextListener {
             dao.create(secondUser);
 
             for (int i = 0; i < 10; i++) {
-                tx.create(new Task("testName"+i, "testText"+i, null, 5L, State.OPEN, testUser, null, new Date(), null));
+                tasksDAO.create(new Task("testName" + i
+                        , "testText" + i
+                        , null, 5L
+                        , State.OPEN, testUser
+                        , null
+                        , new Date()
+                        , null));
             }
 
             manager.getTransaction().commit();
-        } finally {
-            manager.close();
         }
-
-        event.getServletContext().setAttribute("factory", factory);
     }
 
     public void contextDestroyed(ServletContextEvent event) {
