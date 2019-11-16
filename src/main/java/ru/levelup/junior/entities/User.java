@@ -11,7 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
+/**
+ * Класс, описывающий пользователя - участника сервиса борьбы с расклейкой рекламы в неположенных местах
+ */
 @Entity
 @Table(name = "users")
 public class User {
@@ -21,9 +25,11 @@ public class User {
     private long id;
 
     @Column(length = 32, unique = true, nullable = false)
+    @Size(min = 4, max = 32, message = "Login length should be at least 4 and at most 32 characters length")
     private String login;
 
     @Column(length = 32, nullable = false)
+    @Size(min = 4, max = 32, message = "Password length should be at least 4 and at most 32 characters length")
     private String password;
 
     long rating;

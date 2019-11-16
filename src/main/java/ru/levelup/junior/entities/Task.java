@@ -13,8 +13,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
+/**
+ * Класс, описывающий задание на удаление несанкционированной рекламы
+ */
 @Entity
 @Table(name = "tasks")
 public class Task {
@@ -22,10 +26,13 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @Size(min = 4, max = 100, message = "Message's name length should be at least 4 and at most 100 characters length")
     private String name;
 
+    @Size(min = 4, max = 500, message = "Message's text length should be at least 4 and at most 500 characters length")
     private String text;
 
+    @Size(min = 4, max = 500, message = "Message's report length should be at least 4 and at most 500 characters length")
     private String report;
 
     private long rating;
