@@ -11,17 +11,12 @@ import ru.levelup.junior.entities.State;
 import ru.levelup.junior.entities.Task;
 import ru.levelup.junior.entities.User;
 
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.util.Date;
 
-//@Component
+@Component
 public class StartupListener implements ServletContextListener {
-    @Autowired
-    private EntityManagerFactory factory;
 
     @Autowired
     UsersDAO dao;
@@ -38,7 +33,6 @@ public class StartupListener implements ServletContextListener {
         try {
             testUser = dao.findByLogin("test");
             secondUser = dao.findByLogin("second");
-
         } catch (NoResultException notFound) {
             testUser = new User("test", "123", 0L);
             secondUser = new User("second", "333", 0L);
@@ -56,17 +50,5 @@ public class StartupListener implements ServletContextListener {
                         , null));
             }
         }
-    }
-
-    public void contextDestroyed(ServletContextEvent event) {
-        EntityManagerFactory factory = getFactory(event.getServletContext());
-
-        if (factory != null) {
-            factory.close();
-        }
-    }
-
-    public static EntityManagerFactory getFactory(ServletContext context) {
-        return (EntityManagerFactory) context.getAttribute("factory");
     }
 }
