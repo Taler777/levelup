@@ -1,4 +1,4 @@
-package ru.levelup.junior.entities;
+package ru.levelup.junior.enums;
 
 public enum State {
     OPEN,

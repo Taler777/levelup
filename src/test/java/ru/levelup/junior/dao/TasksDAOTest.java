@@ -1,6 +1,6 @@
 package ru.levelup.junior.dao;
 
-import ru.levelup.junior.entities.State;
+import ru.levelup.junior.enums.State;
 import ru.levelup.junior.entities.Task;
 import ru.levelup.junior.entities.User;
 import org.junit.After;

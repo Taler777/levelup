@@ -2,9 +2,8 @@ package ru.levelup.junior.dao;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.levelup.junior.entities.State;
+import ru.levelup.junior.enums.State;
 import ru.levelup.junior.entities.Task;
-import ru.levelup.junior.entities.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

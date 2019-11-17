@@ -3,6 +3,7 @@ package ru.levelup.junior.entities;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import ru.levelup.junior.enums.State;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
