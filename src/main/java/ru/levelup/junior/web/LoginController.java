@@ -49,9 +49,9 @@ public class LoginController extends HttpServlet {
             @ModelAttribute("form") RegistrationFormBean form,
             BindingResult result
     ) {
-        String passwordConfirmation = form.getConfirmation();
+        String passwordConfirmation = form.getPasswordConfirmation();
         if (passwordConfirmation == null
-                || passwordConfirmation.isEmpty()
+//                || passwordConfirmation.isEmpty()
                 || !form.getPassword().equals(passwordConfirmation)) {
             result.addError(new FieldError("form", "passwordConfirmation", "Confirmation doesn't match!!!"));
         }
@@ -72,7 +72,7 @@ public class LoginController extends HttpServlet {
         RegistrationFormBean bean = new RegistrationFormBean();
         bean.setLogin("");
         bean.setPassword("");
-        bean.setConfirmation("");
+        bean.setPasswordConfirmation("");
 
         return bean;
     }
