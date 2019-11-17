@@ -32,7 +32,6 @@
 <c:if test="${not empty sessionScope['userId']}">
     <p><a href="/users">Users</a></p>
     <p><a href="/tasks">Tasks</a></p>
-
 </c:if>
 
 <c:if test="${not empty login}">

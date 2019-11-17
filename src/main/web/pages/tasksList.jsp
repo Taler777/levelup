@@ -50,5 +50,10 @@
 
 </table>
 
+<c:if test="${not empty sessionScope['userId']}">
+    <p><a href="/">Main page</a></p>
+    <p><a href="/users">Users</a></p>
+</c:if>
+
 </body>
 </html>

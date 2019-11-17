@@ -17,7 +17,7 @@ public class TaskService {
         dao.create(task);
     }
 
-    public Task getTask(long id){
+    public Task getTask(long id) {
         Task found = dao.findById(id);
         return found;
     }

@@ -4,25 +4,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.levelup.junior.entities.User;
+import ru.levelup.junior.dao.TasksDAO;
+import ru.levelup.junior.entities.Task;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
- * Контроллер, отрабатывающий запросы относительно пользователей
+ * Контроллер, отрабатывающий запросы относительно заданий
  */
 @Controller
-public class UsersController {
+public class TasksController {
     @Autowired
-    private UserService userService;
+    TasksDAO dao;
 
-    @GetMapping(path = "/users")
+    @GetMapping(path = "/tasks")
     public String dashboard(HttpSession session, ModelMap model) {
         try {
-            List<User> users = userService.getAllUsers();
-            model.addAttribute("users", users);
-            return "usersList";
+            List<Task> tasks = dao.findAllTasks();
+            model.addAttribute("tasks", tasks);
+            return "tasksList";
         } catch (Exception e) {
             return "mainPage";
         }
