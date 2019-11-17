@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.levelup.junior.dao.UsersDAO;
 import ru.levelup.junior.entities.User;
+import ru.levelup.junior.forms.RegistrationForm;
 
 import javax.persistence.NoResultException;
 import javax.servlet.http.HttpServlet;
@@ -46,12 +47,12 @@ public class LoginController extends HttpServlet {
     @PostMapping("/register")
     public String registrationForm(
             @Validated
-            @ModelAttribute("form") RegistrationFormBean form,
+            @ModelAttribute("form") RegistrationForm form,
             BindingResult result
     ) {
         String passwordConfirmation = form.getPasswordConfirmation();
         if (passwordConfirmation == null
-//                || passwordConfirmation.isEmpty()
+                || passwordConfirmation.isEmpty()
                 || !form.getPassword().equals(passwordConfirmation)) {
             result.addError(new FieldError("form", "passwordConfirmation", "Confirmation doesn't match!!!"));
         }
@@ -68,8 +69,8 @@ public class LoginController extends HttpServlet {
     }
 
     @ModelAttribute("form")
-    public RegistrationFormBean newFormBean() {
-        RegistrationFormBean bean = new RegistrationFormBean();
+    public RegistrationForm newFormBean() {
+        RegistrationForm bean = new RegistrationForm();
         bean.setLogin("");
         bean.setPassword("");
         bean.setPasswordConfirmation("");

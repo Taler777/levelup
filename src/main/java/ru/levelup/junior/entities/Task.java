@@ -38,9 +38,15 @@ public class Task {
 
     private long rating;
 
-    private State state;
+    private State state = State.OPEN;
 
     public Task() {
+    }
+
+    public Task(String name, String text) {
+        this.name = name;
+        this.text = text;
+
     }
 
     public Task(String name, String text, String report, long rating, State state, User author, User executor, Date dateOpen, Date dateClose) {

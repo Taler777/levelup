@@ -13,16 +13,16 @@ import java.util.List;
  * Контроллер, отрабатывающий запросы относительно пользователей
  */
 @Controller
-public class UsersController {
+public class UserController {
     @Autowired
     private UserService userService;
 
     @GetMapping(path = "/users")
-    public String dashboard(HttpSession session, ModelMap model) {
+    public String getUsers(HttpSession session, ModelMap model) {
         try {
             List<User> users = userService.getAllUsers();
             model.addAttribute("users", users);
-            return "usersList";
+            return "userList";
         } catch (Exception e) {
             return "mainPage";
         }
