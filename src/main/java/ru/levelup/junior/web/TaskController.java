@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.levelup.junior.dao.TasksDAO;
+import ru.levelup.junior.dao.UsersDAO;
 import ru.levelup.junior.entities.Task;
+import ru.levelup.junior.entities.User;
 import ru.levelup.junior.forms.AddTaskForm;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,12 +25,15 @@ import java.util.List;
 @Controller
 public class TaskController {
     @Autowired
-    TasksDAO dao;
+    TasksDAO tasksDAO;
+
+    @Autowired
+    UsersDAO usersDAO;
 
     @GetMapping(path = "/tasks")
     public String getTasks(HttpSession session, ModelMap model) {
         try {
-            List<Task> tasks = dao.findAllTasks();
+            List<Task> tasks = tasksDAO.findAllTasks();
             model.addAttribute("tasks", tasks);
             return "taskList";
         } catch (Exception e) {
@@ -44,16 +50,21 @@ public class TaskController {
     public String registrationForm(
             @Validated
             @ModelAttribute("form") AddTaskForm form,
-            BindingResult result
+            BindingResult result,
+            HttpSession session
     ) {
         if (form.getName() == null || form.getName().isEmpty()) {
             result.addError(new FieldError("form", "name", "Name ..."));
         }
-        dao.create(new Task(form.getName(), form.getText()));
+        if (form.getText() == null || form.getText().isEmpty()) {
+            result.addError(new FieldError("form", "text", "Text ..."));
+        }
+        User author = usersDAO.findById((long) session.getAttribute("userId"));
+        tasksDAO.create(new Task(form.getName(), form.getText(), author, new Date()));
         if (result.hasErrors()) {
             return "addTask";
         }
-        return "taskList";
+        return "redirect:/tasks";
     }
 
     @ModelAttribute("form")

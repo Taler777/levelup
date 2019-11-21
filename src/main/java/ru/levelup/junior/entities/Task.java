@@ -36,30 +36,9 @@ public class Task {
     @Size(min = 4, max = 500, message = "Message's report length should be at least 4 and at most 500 characters length")
     private String report;
 
-    private long rating;
+    private long rating = 5;
 
     private State state = State.OPEN;
-
-    public Task() {
-    }
-
-    public Task(String name, String text) {
-        this.name = name;
-        this.text = text;
-
-    }
-
-    public Task(String name, String text, String report, long rating, State state, User author, User executor, Date dateOpen, Date dateClose) {
-        this.name = name;
-        this.text = text;
-        this.report = report;
-        this.rating = rating;
-        this.state = state;
-        this.author = author;
-        this.executor = executor;
-        this.dateOpen = dateOpen;
-        this.dateClose = dateClose;
-    }
 
     @OneToOne
     private User author;
@@ -74,6 +53,28 @@ public class Task {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateClose;
+
+    public Task() {
+    }
+
+    public Task(String name, String text, User author, Date dateOpen) {
+        this.name = name;
+        this.text = text;
+        this.author = author;
+        this.dateOpen = dateOpen;
+    }
+
+    public Task(String name, String text, String report, long rating, State state, User author, User executor, Date dateOpen, Date dateClose) {
+        this.name = name;
+        this.text = text;
+        this.report = report;
+        this.rating = rating;
+        this.state = state;
+        this.author = author;
+        this.executor = executor;
+        this.dateOpen = dateOpen;
+        this.dateClose = dateClose;
+    }
 
     public long getId() {
         return id;
