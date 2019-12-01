@@ -3,6 +3,9 @@ package ru.levelup.junior.forms;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/**
+ * Форма при регистрации
+ */
 public class RegistrationForm {
     @Size(min=4, max=32, message = "Login length should be at least 4 and at most 32 characters length")
     @Pattern(regexp = "[a-zA-Z_0-9]+", message = "Only characters, undercscore and numbers resolved.")

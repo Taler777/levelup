@@ -19,7 +19,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "users")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -32,7 +31,7 @@ public class User {
     @Size(min = 4, max = 32, message = "Password length should be at least 4 and at most 32 characters length")
     private String password;
 
-    long rating;
+    private long rating;
 
     public User() {
     }
