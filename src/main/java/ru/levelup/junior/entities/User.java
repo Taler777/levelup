@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -24,7 +25,8 @@ public class User {
     private long id;
 
     @Column(length = 32, unique = true, nullable = false)
-    @Size(min = 4, max = 32, message = "Login length should be at least 4 and at most 32 characters length")
+    @Size(min=4, max=32, message = "Login length should be at least 4 and at most 32 characters length")
+    @Pattern(regexp = "[a-zA-Z_0-9]+", message = "Only characters, undercscore and numbers resolved.")
     private String login;
 
     @Column(length = 32, nullable = false)

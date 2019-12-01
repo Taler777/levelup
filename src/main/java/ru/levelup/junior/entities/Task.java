@@ -7,6 +7,8 @@ import ru.levelup.junior.enums.State;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,6 +40,7 @@ public class Task {
 
     private long rating = 5;
 
+    @Enumerated(EnumType.ORDINAL.STRING)
     private State state = State.OPEN;
 
     @OneToOne
