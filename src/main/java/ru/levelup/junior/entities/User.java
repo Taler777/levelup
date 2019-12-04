@@ -1,15 +1,18 @@
 package ru.levelup.junior.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -31,9 +34,16 @@ public class User {
 
     @Column(length = 32, nullable = false)
     @Size(min = 4, max = 32, message = "Password length should be at least 4 and at most 32 characters length")
+    @JsonIgnore
     private String password;
 
     private long rating;
+
+    @OneToMany(mappedBy="author")
+    private List<Task> authorTasks;
+
+    @OneToMany(mappedBy="executor")
+    private List<Task> executorTasks;
 
     public User() {
     }
@@ -74,6 +84,26 @@ public class User {
 
     public void setRating(long rating) {
         this.rating = rating;
+    }
+
+    public List<Task> getAuthorTasks()
+    {
+        return authorTasks;
+    }
+
+    public void setAuthorTasks(List<Task> authorTasks)
+    {
+        this.authorTasks = authorTasks;
+    }
+
+    public List<Task> getExecutorTasks()
+    {
+        return executorTasks;
+    }
+
+    public void setExecutorTasks(List<Task> executorTasks)
+    {
+        this.executorTasks = executorTasks;
     }
 
     @Override

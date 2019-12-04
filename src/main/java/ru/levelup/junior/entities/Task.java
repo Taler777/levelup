@@ -1,5 +1,6 @@
 package ru.levelup.junior.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -12,6 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -43,10 +45,12 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private State state = State.OPEN;
 
-    @OneToOne
+    @JsonIgnore
+    @ManyToOne
     private User author;
 
-    @OneToOne
+    @JsonIgnore
+    @ManyToOne
     private User executor;
 
     @Column
