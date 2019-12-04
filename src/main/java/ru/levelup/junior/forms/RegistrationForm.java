@@ -1,8 +1,5 @@
 package ru.levelup.junior.forms;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
 /**
  * Форма при регистрации
  */

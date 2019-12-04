@@ -40,7 +40,7 @@ public class Task {
 
     private long rating = 5;
 
-    @Enumerated(EnumType.ORDINAL.STRING)
+    @Enumerated(EnumType.STRING)
     private State state = State.OPEN;
 
     @OneToOne

@@ -9,15 +9,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.levelup.junior.dao.TasksDAO;
-import ru.levelup.junior.dao.UsersDAO;
+import ru.levelup.junior.dao.TasksRepository;
+import ru.levelup.junior.dao.UsersRepository;
 import ru.levelup.junior.entities.Task;
 import ru.levelup.junior.entities.User;
 import ru.levelup.junior.forms.AddTaskForm;
 
-import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 
 /**
  * Контроллер, отрабатывающий запросы относительно заданий
@@ -25,15 +25,14 @@ import java.util.List;
 @Controller
 public class TaskController {
     @Autowired
-    TasksDAO tasksDAO;
-
+    private TasksRepository tasksRepository;
     @Autowired
-    UsersDAO usersDAO;
+    private UsersRepository usersRepository;
 
     @GetMapping(path = "/tasks")
     public String getTasks(HttpSession session, ModelMap model) {
         try {
-            List<Task> tasks = tasksDAO.findAllTasks();
+            List<Task> tasks = tasksRepository.findAll();
             model.addAttribute("tasks", tasks);
             return "taskList";
         } catch (Exception e) {
@@ -59,8 +58,8 @@ public class TaskController {
         if (form.getText() == null || form.getText().isEmpty()) {
             result.addError(new FieldError("form", "text", "Text ..."));
         }
-        User author = usersDAO.findById((long) session.getAttribute("userId"));
-        tasksDAO.create(new Task(form.getName(), form.getText(), author, new Date()));
+        User author = usersRepository.findById((long) session.getAttribute("userId")).get();
+        tasksRepository.save(new Task(form.getName(), form.getText(), author, new Date()));
         if (result.hasErrors()) {
             return "addTask";
         }

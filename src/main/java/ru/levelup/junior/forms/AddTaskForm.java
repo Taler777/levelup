@@ -1,7 +1,5 @@
 package ru.levelup.junior.forms;
 
-import javax.validation.constraints.Size;
-
 /**
  * Форма при добавлении задачи
  */

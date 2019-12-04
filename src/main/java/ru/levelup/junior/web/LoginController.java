@@ -10,33 +10,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.levelup.junior.dao.UsersDAO;
+import ru.levelup.junior.dao.UsersRepository;
 import ru.levelup.junior.entities.User;
 import ru.levelup.junior.forms.RegistrationForm;
 
-import javax.persistence.NoResultException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class LoginController extends HttpServlet {
+public class LoginController {
 
     @Autowired
-    UsersDAO usersDAO;
+    private UsersRepository usersRepository;
 
     @PostMapping(path = "/login")
     public String processLogin(HttpSession session,
                                @RequestParam String login,
                                @RequestParam String password,
                                ModelMap model) {
-        try {
-            User found = usersDAO.findByLoginAndPassword(login, password);
-            session.setAttribute("userId", found.getId());
-            return "redirect:/users";
-        } catch (NoResultException notFound) {
-            model.addAttribute("login", "login");
+        User found = usersRepository.findByLoginAndPassword(login,password);
+        if (found==null) {
+            model.addAttribute("login", "password");
             return "mainPage";
         }
+        session.setAttribute("userId", found.getId());
+        return "redirect:/users";
     }
 
     @GetMapping("/register")
@@ -58,7 +55,7 @@ public class LoginController extends HttpServlet {
         }
 
         try {
-            usersDAO.create(new User(form.getLogin(), form.getPassword(), 0L));
+            usersRepository.save(new User(form.getLogin(), form.getPassword(), 0L));
         } catch (Exception e) {
             result.addError(new FieldError("form", "login", "User with this login is already registered"));
         }
