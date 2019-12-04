@@ -6,7 +6,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * Класс, описывающий пользователя - участника сервиса борьбы с расклейкой рекламы в неположенных местах
@@ -28,7 +28,7 @@ public class User {
     private long id;
 
     @Column(length = 32, unique = true, nullable = false)
-    @Size(min=4, max=32, message = "Login length should be at least 4 and at most 32 characters length")
+    @Size(min = 4, max = 32, message = "Login length should be at least 4 and at most 32 characters length")
     @Pattern(regexp = "[a-zA-Z_0-9]+", message = "Only characters, undercscore and numbers resolved.")
     private String login;
 
@@ -39,10 +39,10 @@ public class User {
 
     private long rating;
 
-    @OneToMany(mappedBy="author")
+    @OneToMany(mappedBy = "author")
     private List<Task> authorTasks;
 
-    @OneToMany(mappedBy="executor")
+    @OneToMany(mappedBy = "executor")
     private List<Task> executorTasks;
 
     public User() {
@@ -86,23 +86,19 @@ public class User {
         this.rating = rating;
     }
 
-    public List<Task> getAuthorTasks()
-    {
+    public List<Task> getAuthorTasks() {
         return authorTasks;
     }
 
-    public void setAuthorTasks(List<Task> authorTasks)
-    {
+    public void setAuthorTasks(List<Task> authorTasks) {
         this.authorTasks = authorTasks;
     }
 
-    public List<Task> getExecutorTasks()
-    {
+    public List<Task> getExecutorTasks() {
         return executorTasks;
     }
 
-    public void setExecutorTasks(List<Task> executorTasks)
-    {
+    public void setExecutorTasks(List<Task> executorTasks) {
         this.executorTasks = executorTasks;
     }
 

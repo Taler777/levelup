@@ -27,8 +27,8 @@ public class LoginController {
                                @RequestParam String login,
                                @RequestParam String password,
                                ModelMap model) {
-        User found = usersRepository.findByLoginAndPassword(login,password);
-        if (found==null) {
+        User found = usersRepository.findByLoginAndPassword(login, password);
+        if (found == null) {
             model.addAttribute("login", "password");
             return "mainPage";
         }

@@ -15,9 +15,9 @@ import ru.levelup.junior.entities.Task;
 import ru.levelup.junior.entities.User;
 import ru.levelup.junior.forms.AddTaskForm;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
-import javax.servlet.http.HttpSession;
 
 /**
  * Контроллер, отрабатывающий запросы относительно заданий
